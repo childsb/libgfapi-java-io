@@ -1,8 +1,9 @@
 #!/bin/sh
-GLUSTER_URL=http://download.gluster.org/pub/gluster/glusterfs/3.3/3.3.1/EPEL.repo/epel-6/x86_64/glusterfs-server-3.3.1-1.el6.x86_64.rpm
+
+# GLUSTER_URL=http://download.gluster.org/pub/gluster/glusterfs/3.3/3.3.1/EPEL.repo/epel-6/x86_64/glusterfs-server-3.3.1-1.el6.x86_64.rpm
 TMP_DIR=/tmp/gluster-test
 NUMBER_OF_BRICKS=3
-GLUSTER_VOLUME=hadooptest
+GLUSTER_VOLUME=glustertest
 
 mkdir -p ${TMP_DIR}/rpm
 mkdir -p ${TMP_DIR}/bricks
@@ -50,6 +51,8 @@ createGlusterVolume(){
 		mount -t ext4 $LB_BRICK  $BRICK
 		GLUSTER_VOLUME_CMD="${GLUSTER_VOLUME_CMD} ${HOSTNAME}:${BRICK}" 
 	 done
+        # Force volume creation
+        GLUSTER_VOLUME_CMD="${GLUSTER_VOLUME_CMD} force"
 
 	# Run the gluster command to create the volume
 
